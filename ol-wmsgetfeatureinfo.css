@@ -1,0 +1,22 @@
+/**
+ * ol-wmsgetfeatureinfo.css
+ *
+ * to use with ol-wmsgetfeatureinfo.js
+ * 
+ * MIT License
+ * Copyright (c) 2020 Gede Mátyás
+ * 
+ */
+.ol-wmsgetfeatureinfo {
+    background: white;
+    padding: 20px;
+    box-shadow: 10px 10px 5px rgba(0,0,0,.5);
+    max-width: 400px;
+}
+.ol-wmsgetfeatureinfo-button {
+    position: absolute;
+    top: -1px; right: -1px;
+    width: 22px; height: 22px;
+    padding: 0px;
+    font-size: 12px;
+}
