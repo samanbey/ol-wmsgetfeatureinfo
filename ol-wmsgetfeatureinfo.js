@@ -20,6 +20,8 @@
 WMSGetFeatureInfo=function(options) {            
     var opts=options||{};
     var this_=this;
+    
+    var DP = new DOMParser();
 
     // merge options
     for (var i in opts)
@@ -96,7 +98,25 @@ WMSGetFeatureInfo=function(options) {
                         fetchNext();
                     else {
                         if (text!='') {
-                            this_.mdiv.innerHTML=text;
+                            let doc = DP.parseFromString(text,'text/html');
+                            let b=doc.body;
+                            this_.mdiv.innerHTML='';
+                            this_.mdiv.appendChild(b);
+                            // scripts added by setting innerHTML are not executed. Workaround here for dynamic charts
+                            let sc=b.getElementsByTagName('script');
+                            let i=0;
+                            function sLoad() {
+                                if (i<sc.length) {
+                                    let s=document.createElement('script');
+                                    s.onload=sLoad;
+                                    if (sc[i].src!="")
+                                        s.src=sc[i].src;
+                                    s.innerHTML=sc[i].innerHTML;
+                                    i++;
+                                    document.body.appendChild(s);                                    
+                                }
+                            }
+                            sLoad();
                             this_.div.style.display='';
                             this_.ovl.setPosition(e.coordinate);
                         }
